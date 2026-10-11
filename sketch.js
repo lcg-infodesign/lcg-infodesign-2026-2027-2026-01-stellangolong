@@ -1,6 +1,7 @@
 let xMax = 400;
 let yMax = 600;
 let scena = 0;
+let colore;
 
 function setup() {
   createCanvas(xMax, yMax);
@@ -18,15 +19,38 @@ function draw() {
   } else {
     scena = 3;
   }
-  // Sfondo azzurro
-  background("#A5D9FD");
-
+  // Sfondi a seconda della faccia che assume la nuvola
+  if(scena == 2){
+    background("#D2D2D2");
+  } else if (scena == 3){
+    background("#9b8aa6");
+  } 
+  else{
+     background("#A5D9FD");
+  }
+   
   // Nuvole di sfondo
   disegnaNuvole();
   
-// Nuvole in primo piano
-  nuvola(60, 255, 1.5, 255);
-  nuvola(255, 255, 1.5, 255);
+// Nuvola 1 in primo piano
+  if (scena == 0){
+     nuvola(60, 255, 1.5, 255, color("#FFFFFF"));
+  } else{
+    nuvola(60, 255, 1.5, 255, color("#23282B"));
+  }
+  //nuvola 2 in primo piano
+  if(scena == 0){
+    nuvola(255, 255, 1.5, 255, color("#FFFFFF"));
+  } else if (scena == 1){
+    nuvola(255, 255, 1.5, 255, color("#FFFFFF"));
+  } else if(scena == 2){
+    nuvola(255, 255, 1.5, 255, color("#C3C6BD"));
+  }
+   else if(scena == 3){
+    nuvola(255, 255, 1.5, 255, color("#23282B"));
+  }
+  
+//Facce a seconda della scena
 if(scena == 0){
   disegnaFacciaFelice(100, 255); //prima nuvola
   disegnaFacciaFelice(295, 255); //seconda nuvola
@@ -86,19 +110,27 @@ strokeWeight(3);
   }
 
 function disegnaNuvole() {
-  nuvola(30, 90, 0.7, 200);
-  nuvola(190, 150, 1, 200);
-  nuvola(150, 60, 1, 200);
-  nuvola(330, 90, 0.7, 200);
+  
+  if(scena == 2){
+    colore = color("#C3C6BD");
+  } else if(scena == 3){
+    colore = color("#23282B");
+  } else{
+    colore = color("#FFFFFF");
+  }
+  nuvola(30, 90, 0.7, 150, colore);
+  nuvola(190, 150, 1, 150, colore);
+  nuvola(150, 60, 1, 150, colore);
+  nuvola(330, 90, 0.7, 150, colore);
 }
 
-function nuvola(x, y, scala, trasparenza) {
+function nuvola(x, y, scala, trasparenza, colore) {
   push();
   translate(x, y);
   scale(scala);
 
   noStroke();
-  fill(255, 255, 255, trasparenza);
+  fill(red(colore), green(colore), blue(colore), trasparenza);
 
   ellipse(0, 0, 60, 40);
   ellipse(25, -15, 50, 45);
